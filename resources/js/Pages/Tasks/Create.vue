@@ -1,5 +1,7 @@
 <script lang="ts">
 import TextInput from '@/Shared/TextInput.vue';
+import LoadingButton from '@/Shared/LoadingButton.vue';
+
 export default {
     components: {
         TextInput,
@@ -39,27 +41,28 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
                         <span class="font-medium text-gray-400">/</span> Create
                     </h1>
                     <div
-                        class="max-w-3xl overflow-hidden rounded-md bg-white shadow"
+                        class="w-full overflow-hidden rounded-md bg-white shadow"
                     >
                         <form @submit.prevent="store">
-                            <div class="-mb-8 -mr-6 flex flex-wrap p-8">
+                            <div class="flex flex-wrap p-8">
                                 <text-input
                                     v-model="form.name"
                                     :error="form.errors.name"
-                                    class="w-full pb-8 pr-6 lg:w-1/2"
+                                    class="w-full pb-8 pr-6"
                                     label="Name"
                                 />
                                 <text-input
                                     v-model="form.description"
                                     :error="form.errors.description"
-                                    class="w-full pb-8 pr-6 lg:w-1/2"
+                                    class="w-full pb-8 pr-6"
                                     label="Description"
                                 />
                                 <text-input
                                     v-model="form.due_date"
                                     :error="form.errors.due_date"
-                                    class="w-full pb-8 pr-6 lg:w-1/2"
+                                    class="w-full pb-8 pr-6"
                                     label="Due date"
+                                    :placeholder="'dd/mm/yyyy'"
                                 />
                             </div>
                             <div

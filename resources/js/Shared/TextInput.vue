@@ -5,10 +5,11 @@
             :id="id"
             ref="input"
             v-bind="{ ...$attrs, class: null }"
-            class="form-input"
+            class="form-input w-full"
             :class="{ error: error }"
             :type="type"
             :value="modelValue"
+            :placeholder="placeholder"
             @input="$emit('update:modelValue', $event.target.value)"
         />
         <div v-if="error" class="form-error">{{ error }}</div>
@@ -33,6 +34,10 @@ export default {
         },
         error: String,
         label: String,
+        placeholder: {
+            type: String,
+            default: '',
+        },
         modelValue: String,
     },
     emits: ['update:modelValue'],
