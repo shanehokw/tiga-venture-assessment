@@ -34,4 +34,28 @@ class TaskService {
             throw $th;
         }
     }
+
+    public function updateTask(array $taskData, int $taskId, int $userId)
+    {
+        $task = Task::where('id', $taskId)->where('user_id', $userId)->first();
+        if (!$task) {
+            throw new \Exception('Could not find task with id ' . $taskId);
+        }
+
+        DB::beginTransaction();
+
+        try {
+            $task->name = $taskData['name'];
+            $task->description = $taskData['description'] ?? null;
+            $task->due_date = $taskData['due_date'] ?? null;
+
+            $task->save();
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            throw $th;
+        }
+    }
 }

@@ -105,25 +105,35 @@ defineProps({ tasks: Object });
                                 <td
                                     class="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
                                 >
-                                    {{ task.name }}
+                                    <a v-bind:href="`/task/${task.id}/edit`">
+                                        {{ task.name }}
+                                    </a>
                                 </td>
                                 <td class="px-3 py-4 text-sm text-gray-500">
-                                    {{ task.description }}
+                                    <a v-bind:href="`/task/${task.id}/edit`">
+                                        {{ task.description }}
+                                    </a>
                                 </td>
                                 <td
                                     class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
                                 >
-                                    {{ task.due_date }}
+                                    <a v-bind:href="`/task/${task.id}/edit`">
+                                        {{ task.due_date }}
+                                    </a>
                                 </td>
                                 <td
                                     class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
                                 >
-                                    {{ task.created_at }}
+                                    <a v-bind:href="`/task/${task.id}/edit`">
+                                        {{ task.created_at }}
+                                    </a>
                                 </td>
                                 <td
                                     class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
                                 >
-                                    {{ task.status }}
+                                    <a v-bind:href="`/task/${task.id}/edit`">
+                                        {{ task.status }}
+                                    </a>
                                 </td>
                             </tr>
                         </tbody>

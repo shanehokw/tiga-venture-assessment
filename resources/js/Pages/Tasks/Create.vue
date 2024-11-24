@@ -70,7 +70,6 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
                             >
                                 <loading-button
                                     :loading="form.processing"
-                                    class="btn-indigo"
                                     type="submit"
                                     >Create Task</loading-button
                                 >

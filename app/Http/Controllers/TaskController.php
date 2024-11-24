@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\IndexTaskRequest;
 use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
+use App\Models\Task;
 use App\Services\TaskService;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 use Redirect;
@@ -31,14 +32,31 @@ class TaskController extends Controller
             $taskService->createTask($request->validated(), auth()->id());
             return Redirect::route('task.index')->with('success', 'Task created.');
         } catch (\Throwable $th) {
-            error_log($th->getMessage());
             abort(500, $th->getMessage());
         }
     }
 
-    public function show() {}
+    public function edit(Task $task, TaskService $taskService): Response
+    {
+        return Inertia::render('Tasks/Edit', [
+            "task" => [
+                'id' => $task->id,
+                'name'=> $task->name,
+                'description'=> $task->description,
+                'due_date'=> $task->due_date->format('d/m/Y'),
+                'created_at'=> $task->created_at->format('d/m/Y'),
+                'status'=> $task->status,
+            ]
+        ]);
+    }
 
-    public function update() {}
-
-    public function destroy() {}
+    public function update(UpdateTaskRequest $request, Task $task, TaskService $taskService) {
+        try {
+            $taskService->updateTask($request->validated(), $task->id, auth()->id());
+            return Redirect::route('task.index')->with('success', 'Task updated.');
+        } catch (\Throwable $th) {
+            error_log($th->getMessage());
+            abort(500, $th->getMessage());
+        }
+    }
 }
