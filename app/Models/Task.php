@@ -15,6 +15,14 @@ class Task extends Model
 
     protected $appends = ['status'];
 
+    protected function casts(): array
+    {
+        return [
+            'due_date' => 'date:Y-m-d',
+            'created_at' => 'date:Y-m-d'
+        ];
+    }
+
     protected function getStatusAttribute(): string{
         $dueDate = Carbon::parse($this->due_date); // Parse the due_date as Carbon instance
         $today = Carbon::now();
