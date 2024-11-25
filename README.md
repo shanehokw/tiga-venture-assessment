@@ -56,15 +56,17 @@ The following requirements were given:
 
 First, I gave the requirements document a read to get an understanding of the application to build. As it was quite straightforward, I had no clarifying questions. Next, I started by drafting the entities of the application. I knew there would be Users and Tasks. Then I considered the relationships of the entities. A user can have many tasks, and inversely, a task belongs to one user. Then, I proceeded with modelling the data. Since status is determined based on the due date, I decided not to set it as a column but rather to compute it programmatically.
 
+```
 Task {
-name string NOT NULL
-user_id bigint NOT NULL
-description string
-due_date datetime
-created_at datetime
-updated_at datetime
-deleted_at datetime
+    name string
+    user_id bigint
+    description string
+    due_date datetime
+    created_at datetime
+    updated_at datetime
+    deleted_at datetime
 }
+```
 
 Then, I spent a few days familiarising myself with Laravel. As it is an opionated framework, I look through several articles, sample repositories and watch YouTube videos to get a feel for the project structure and coding style. Thankfully, it follows a similar architectural pattern to what I currently use. I then got to developing. I first focused on rendering some sample data using Inertia + Vue, making sure I was able to get Vue and Laravel to communicate with each other. Then I built out the create and edit pages to make sure that changes I make were persisted to the database.
 
