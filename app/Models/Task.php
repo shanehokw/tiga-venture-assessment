@@ -18,8 +18,8 @@ class Task extends Model
     protected function casts(): array
     {
         return [
-            'due_date' => 'date:Y-m-d',
-            'created_at' => 'date:Y-m-d'
+            'due_date' => 'date:d/m/Y',
+            'created_at' => 'date:d/m/Y'
         ];
     }
 

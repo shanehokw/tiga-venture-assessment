@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Models\Task;
 use Carbon\Carbon;
 use DB;
-use Log;
 
 class TaskService {
     public function getTasksWithPagination(int $userId, array $options)
@@ -34,7 +33,7 @@ class TaskService {
             $task->user_id = $userId;
             $task->name = $taskData['name'];
             $task->description = $taskData['description'] ?? null;
-            $task->due_date = $taskData['due_date'] ?? null;
+            $task->due_date = $taskData['due_date'];
 
             $task->save();
 
@@ -58,7 +57,7 @@ class TaskService {
         try {
             $task->name = $taskData['name'];
             $task->description = $taskData['description'] ?? null;
-            $task->due_date = $taskData['due_date'] ?? null;
+            $task->due_date = Carbon::createFromFormat('d/m/Y', $taskData['due_date']);
 
             $task->save();
 
