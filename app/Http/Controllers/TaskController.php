@@ -17,6 +17,8 @@ class TaskController extends Controller
     {
         $tasks = $taskService->getTasks(auth()->id(), [
             "search" => $request['search'] ?? '',
+            "orderBy" => $request['orderBy'] ?? '',
+            "orderDirection" => $request['orderDirection'] ?? 'asc',
         ]);
         return Inertia::render('Tasks/Index', [
             "tasks" => $tasks

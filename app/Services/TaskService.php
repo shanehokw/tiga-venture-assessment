@@ -10,9 +10,17 @@ use Log;
 class TaskService {
     public function getTasks(int $userId, array $options)
     {
-        return Task::where("user_id", $userId)
-            ->where('name', 'ILIKE', "%".$options['search']."%" )
-            ->get();
+        $query = Task::where("user_id", $userId);
+
+        if ($options['search']) {
+            $query->where('name', 'ILIKE', "%".$options['search']."%" );
+        }
+
+        if ($options['orderBy']) {
+            $query->orderBy($options['orderBy'], $options['orderDirection']);
+        }
+
+        return $query->get();
     }
 
     public function createTask(array $taskData, int $userId)
