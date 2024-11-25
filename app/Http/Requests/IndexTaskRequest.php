@@ -23,6 +23,7 @@ class IndexTaskRequest extends FormRequest
     public function rules(): array
     {
         return [
+            "search" => ['sometimes'],
             "due_date" => ['sometimes', Rule::in(['asc', 'desc'])],
             "created_at" => ['sometimes', Rule::in(['asc', 'desc'])],
         ];

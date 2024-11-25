@@ -8,9 +8,11 @@ use DB;
 use Log;
 
 class TaskService {
-    public function getTasks(int $userId)
+    public function getTasks(int $userId, array $options)
     {
-        return Task::where("user_id", $userId)->get();
+        return Task::where("user_id", $userId)
+            ->where('name', 'ILIKE', "%".$options['search']."%" )
+            ->get();
     }
 
     public function createTask(array $taskData, int $userId)

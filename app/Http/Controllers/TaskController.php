@@ -15,7 +15,9 @@ class TaskController extends Controller
 {
     public function index(IndexTaskRequest $request, TaskService $taskService): Response
     {
-        $tasks = $taskService->getTasks(auth()->id());
+        $tasks = $taskService->getTasks(auth()->id(), [
+            "search" => $request['search'] ?? '',
+        ]);
         return Inertia::render('Tasks/Index', [
             "tasks" => $tasks
         ]);
@@ -55,7 +57,6 @@ class TaskController extends Controller
             $taskService->updateTask($request->validated(), $task->id, auth()->id());
             return Redirect::route('task.index')->with('success', 'Task updated.');
         } catch (\Throwable $th) {
-            error_log($th->getMessage());
             abort(500, $th->getMessage());
         }
     }
