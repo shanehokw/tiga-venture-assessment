@@ -1,5 +1,6 @@
 <script lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import Pagination from '@/Shared/Pagination.vue';
 import SortIcon from '@/Shared/SortIcon.vue';
 import TextInput from '@/Shared/TextInput.vue';
 
@@ -11,6 +12,7 @@ export default {
     components: {
         TextInput,
         SortIcon,
+        Pagination,
     },
     layout: AuthenticatedLayout,
     props: {
@@ -51,6 +53,10 @@ export default {
     <div class="mt-3 flex justify-center">
         <div class="w-4/5 rounded-2xl bg-white p-4">
             <div class="flex flex-wrap gap-y-4 rounded-xl">
+                <div class="flex w-full items-center justify-between">
+                    <h2 class="text-4xl">Your Tasks</h2>
+                    <a href="/task/create">Add</a>
+                </div>
                 <div class="flex w-full justify-between">
                     <text-input
                         v-model="filters.search"
@@ -60,10 +66,6 @@ export default {
                     <button @click="index" class="bg-blue-700 px-2 text-white">
                         Search
                     </button>
-                </div>
-                <div class="flex w-full justify-between">
-                    <h2 class="text-4xl">Your Tasks</h2>
-                    <a href="/task/create">Add</a>
                 </div>
                 <table class="min-w-full divide-y divide-gray-300">
                     <thead>
@@ -90,6 +92,7 @@ export default {
                                     <sort-icon
                                         :field="'due_date'"
                                         :filters="filters"
+                                        :class="'self-center'"
                                     ></sort-icon>
                                 </div>
                             </th>
@@ -103,6 +106,7 @@ export default {
                                     <sort-icon
                                         :field="'created_at'"
                                         :filters="filters"
+                                        :class="'self-center'"
                                     ></sort-icon>
                                 </div>
                             </th>
@@ -115,7 +119,7 @@ export default {
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200 bg-white">
-                        <tr v-for="task in tasks" :key="task.id">
+                        <tr v-for="task in tasks!.data" :key="task.id">
                             <td
                                 class="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
                             >
@@ -152,6 +156,7 @@ export default {
                         </tr>
                     </tbody>
                 </table>
+                <pagination class="mt-6" :links="tasks!.links" />
             </div>
         </div>
     </div>

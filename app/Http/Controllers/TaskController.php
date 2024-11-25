@@ -15,11 +15,14 @@ class TaskController extends Controller
 {
     public function index(IndexTaskRequest $request, TaskService $taskService): Response
     {
-        $tasks = $taskService->getTasks(auth()->id(), [
+        $tasks = $taskService->getTasksWithPagination(auth()->id(), [
             "search" => $request['search'] ?? '',
             "orderBy" => $request['orderBy'] ?? '',
             "orderDirection" => $request['orderDirection'] ?? 'asc',
+            "pageNo" => $request['page'] ?? 1,
+            "paginationQueryString" => $request->all()
         ]);
+
         return Inertia::render('Tasks/Index', [
             "tasks" => $tasks
         ]);

@@ -2,13 +2,12 @@
 
 namespace App\Services;
 
-use App\Http\Requests\StoreTaskRequest;
 use App\Models\Task;
 use DB;
 use Log;
 
 class TaskService {
-    public function getTasks(int $userId, array $options)
+    public function getTasksWithPagination(int $userId, array $options)
     {
         $query = Task::where("user_id", $userId);
 
@@ -20,7 +19,8 @@ class TaskService {
             $query->orderBy($options['orderBy'], $options['orderDirection']);
         }
 
-        return $query->get();
+        return $query->paginate(10, ['*'], 'page', $options['pageNo'])
+            ->appends($options["paginationQueryString"]);
     }
 
     public function createTask(array $taskData, int $userId)
