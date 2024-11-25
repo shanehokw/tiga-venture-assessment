@@ -26,13 +26,19 @@ class Task extends Model
     protected function getStatusAttribute(): string{
         $dueDate = Carbon::parse($this->due_date); // Parse the due_date as Carbon instance
         $today = Carbon::now();
+        $oneWeekAfter = Carbon::now()->addDays(7);
 
-        if ($dueDate->isPast()) {
-            return 'Overdue';
-        } elseif ($dueDate->diffInDays($today) <= 7) {
+        if ($dueDate->isSameDay($oneWeekAfter) || // due exactly 7 days from now
+            $dueDate->isSameDay($today) || // due today
+            ($dueDate->isAfter($today) && $dueDate->isBefore($oneWeekAfter)) // between today and 7 days from now
+        ) {
             return 'Due soon';
-        } else {
+        } 
+
+        if ($dueDate->isAfter($oneWeekAfter)) {
             return 'Not urgent';
         }
+
+        return 'Overdue';
     }
 }

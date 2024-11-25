@@ -43,8 +43,12 @@ class TaskController extends Controller
         }
     }
 
-    public function edit(Task $task, TaskService $taskService): Response
+    public function edit(Task $task): Response
     {
+        if ($task->user_id !== auth()->id()) {
+            abort(403);
+        }
+
         return Inertia::render('Tasks/Edit', [
             "task" => [
                 'id' => $task->id,
