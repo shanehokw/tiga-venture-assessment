@@ -1,9 +1,11 @@
 <script lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import LoadingButton from '@/Shared/LoadingButton.vue';
 import TextInput from '@/Shared/TextInput.vue';
 
 export default {
     components: {
+        LoadingButton,
         TextInput,
     },
     layout: AuthenticatedLayout,
